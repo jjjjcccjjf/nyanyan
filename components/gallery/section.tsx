@@ -2,30 +2,38 @@ import React from "react";
 import GalleryCardContainer from "./card-container";
 import GalleryCard from "./card";
 import { configuredSanityClient } from "@/sanity-client";
+import { GalleryItem } from "@/types/sanity.types";
 
-export default async function GallerySection() {
+export default async function GallerySection({ slug }: { slug?: string }) {
+  let condition = "";
+
+  if (slug) {
+    condition = `category == '${slug}'`;
+  }
+
   const res = await configuredSanityClient.fetch(
-    `*[_type == 'gallery-item'] | order(priority desc)`,
+    `*[_type == 'gallery-item' && ${condition === "" ? true : condition}] | order(priority desc)`,
     {},
     {
       next: {
-        revalidate: 10,
+        revalidate: 60,
       },
     },
   );
 
   const imagesExtracted = extractImageGroups(res);
-
   const imagesJSX = buildImagesJSX(imagesExtracted);
 
   return (
-    <section className="container mx-auto grid w-full grid-cols-1 gap-8 p-8 md:grid-cols-2 xl:grid-cols-3">
-      {imagesJSX.map((item) => item)}
+    <section>
+      <div className="container mx-auto grid w-full grid-cols-1 gap-8 p-8 md:grid-cols-2 xl:grid-cols-3">
+        {imagesJSX.map((item) => item)}
+      </div>
     </section>
   );
 }
 
-function extractImageGroups(images: Array<any>, groupsCount = 3) {
+function extractImageGroups(images: Array<GalleryItem>, groupsCount = 3) {
   const length = images.length;
   const perGroup = Math.ceil(length / groupsCount);
 
