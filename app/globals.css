@@ -17,6 +17,8 @@
 }
 
 body {
+  @apply scroll-smooth;
+
   /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
