@@ -9,7 +9,7 @@ export default function Nav() {
   return (
     <section>
       <div className="flex items-center justify-center pb-4">
-        <ul className="flex gap-6">
+        <ul className="sm:flex sm:gap-6 grid grid-cols-2 gap-y-2 gap-x-5">
           <li>
             <Link
               className={pathname === "/" ? "no-underline" : "underline"}
