@@ -5,6 +5,7 @@ import Footer from "@/components/footer";
 import clsx from "clsx";
 import Hero from "@/components/hero";
 import Nav from "@/components/nav";
+import Bio from "@/components/bio";
 
 export const metadata: Metadata = {
   title: "nyanyan | illustrator",
