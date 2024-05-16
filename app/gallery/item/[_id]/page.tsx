@@ -20,7 +20,8 @@ export default async function Page({ params }: { params: { _id: string } }) {
             dimensions {
               width,
               height
-            }
+            },
+            lqip
           }
         }
       }
@@ -44,6 +45,8 @@ export default async function Page({ params }: { params: { _id: string } }) {
           src={url}
           width={res.image.asset.metadata.dimensions.width * 2}
           height={res.image.asset.metadata.dimensions.height * 2}
+          placeholder="blur"
+          blurDataURL={res.image.asset.metadata.lqip}
         />
       </a>
     </div>
