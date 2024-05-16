@@ -1,7 +1,7 @@
 import React from "react";
 import GalleryCardContainer from "./card-container";
 import GalleryCard from "./card";
-import { configuredSanityClient } from "@/sanity-client";
+import { sanityFetch } from "@/sanity-client";
 import { GalleryItem } from "@/types/sanity.types";
 
 export default async function GallerySection({ slug }: { slug?: string }) {
@@ -11,14 +11,8 @@ export default async function GallerySection({ slug }: { slug?: string }) {
     condition = `category == '${slug}'`;
   }
 
-  const res = await configuredSanityClient.fetch(
+  const res = await sanityFetch(
     `*[_type == 'gallery-item' && ${condition === "" ? true : condition}] | order(priority desc)`,
-    {},
-    {
-      next: {
-        revalidate: 60,
-      },
-    },
   );
 
   const imagesExtracted = extractImageGroups(res);

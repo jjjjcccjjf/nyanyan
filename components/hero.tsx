@@ -1,16 +1,8 @@
 import React from "react";
-import { configuredSanityClient } from "@/sanity-client";
+import { sanityFetch } from "@/sanity-client";
 
 export default async function Hero() {
-  const res = await configuredSanityClient.fetch(
-    `*[_type == 'personal-info'][0]`,
-    {},
-    {
-      next: {
-        revalidate: 60,
-      },
-    },
-  );
+  const res = await sanityFetch(`*[_type == 'personal-info'][0]`);
 
   return (
     <>

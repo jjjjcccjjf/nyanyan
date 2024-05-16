@@ -10,7 +10,6 @@ export async function generateStaticParams() {
   ];
 }
 
-export default function page({ params }: { params: { slug: string } }) {
-  console.log(params.slug);
+export default function Page({ params }: { params: { slug: string } }) {
   return <GallerySection slug={params.slug} />;
 }
